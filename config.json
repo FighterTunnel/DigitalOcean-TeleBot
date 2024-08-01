@@ -1,8 +1,8 @@
 {
-  "BOT": {
-    "NAME": "NAMA STORE",
-    "TOKEN": "BOT TOKEN",
-    "ADMINS": [ID TELEGRAM
+  "BOT": {Skyzanzbot
+    "NAME": "Skyzanzbot",
+    "TOKEN": "7241772031:AAGHhBvi8k5FBJVcvqFUkgAGI19v1DbVN50",
+    "ADMINS": [6620239873
     ]
   }
 }
