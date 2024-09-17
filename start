@@ -1,0 +1,101 @@
+#!/bin/bash
+while true; do
+    read -p "Masukkan bot token: " bot_token
+    if [[ -n "$bot_token" ]]; then
+        break
+    else
+        echo "Bot token tidak boleh kosong. Silakan coba lagi."
+    fi
+done
+
+while true; do
+    read -p "Masukkan bot admin ID: " bot_admin_id
+    if [[ "$bot_admin_id" =~ ^[0-9]+$ ]]; then
+        break
+    else
+        echo "Bot admin ID harus berupa angka. Silakan coba lagi."
+    fi
+done
+
+while true; do
+    read -p "Masukkan nama store: " nama_store
+    if [[ -n "$nama_store" ]]; then
+        break
+    else
+        echo "Nama store tidak boleh kosong. Silakan coba lagi."
+    fi
+done
+
+apt update -y
+
+if ! command -v python3 &> /dev/null
+then
+    apt install python3 -y
+else
+    echo "python3 sudah terinstal"
+fi
+
+if ! command -v pip3 &> /dev/null
+then
+    apt install python3-pip -y
+else
+    echo "pip3 sudah terinstal"
+fi
+
+if [ ! -d "/root/DigitalOcean-TeleBot" ]; then
+    git clone https://github.com/FighterTunnel/DigitalOcean-TeleBot.git
+else
+    echo "Repository sudah ada"
+fi
+
+if [ -f "/root/DigitalOcean-TeleBot/requirements.txt" ]; then
+    pip3 install -r /root/DigitalOcean-TeleBot/requirements.txt
+else
+    echo "File requirements.txt tidak ditemukan"
+fi
+
+
+SERVICE_NAME="do"
+SERVICE_FILE="/etc/systemd/system/$SERVICE_NAME.service"
+if [ -f "/root/DigitalOcean-TeleBot/config.json" ]; then
+    rm /root/DigitalOcean-TeleBot/config.json
+fi
+
+cat <<EOT > /root/DigitalOcean-TeleBot/config.json
+{
+  "BOT": {
+    "NAME": "$nama_store",
+    "TOKEN": "$bot_token",
+    "ADMINS": [$bot_admin_id]
+  }
+}
+EOT
+if [ ! -f "$SERVICE_FILE" ]; then
+    echo "[Unit]
+Description=My Python Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /root/DigitalOcean-TeleBot/main.py
+WorkingDirectory=/root/DigitalOcean-TeleBot
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target" > $SERVICE_FILE
+
+
+    systemctl daemon-reload
+
+
+    systemctl enable $SERVICE_NAME
+
+
+    systemctl start $SERVICE_NAME
+else
+    echo "Service $SERVICE_NAME sudah ada"
+fi
+
+echo "Service $SERVICE_NAME telah diinstal"
