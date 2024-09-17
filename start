@@ -94,6 +94,9 @@ WantedBy=multi-user.target" > $SERVICE_FILE
 
 
     systemctl start $SERVICE_NAME
+
+
+    systemctl restart $SERVICE_NAME
 else
     echo "Service $SERVICE_NAME sudah ada"
 fi
