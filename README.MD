@@ -1,3 +1,5 @@
+
+
 # ☁ `Digitalocean-bot`
 
 ![](.README.MD_images/1be8fb97.png)
@@ -18,7 +20,7 @@
 1. **Clone Proyek**: `git clone` proyek ini ke lokal untuk memulai petualangan Anda.
 2. **Instal Ketergantungan**: Jalankan `pip3 install -r requirements.txt` untuk menginstal ketergantungan yang diperlukan dan pastikan semuanya siap.
 3. **Buat Bot**: Buat bot baru melalui [@botfather](https://t.me/botfather) dan catat `token` yang diberikan untuk menghubungkan bot Anda.
-4. **Edit Konfigurasi**: Edit file `config.json` untuk mengisi konfigurasi yang relevan dengan akun Anda dan sesuaikan dengan kebutuhan Anda.
+4. **Edit Konfigurasi**: Edit file `config.json` untuk mengisi konfigurasi yang relevan dengan akun Anda, termasuk `BOT.ADMINS` dengan ID Telegram Anda, dan sesuaikan dengan kebutuhan Anda.
 5. **Jalankan Bot**: Jalankan `python3 main.py` untuk memulai bot dan nikmati kemudahan pengelolaan Digital Ocean Anda dengan antarmuka yang ramah pengguna!
 
 ### 🤖 Identitas Bot
